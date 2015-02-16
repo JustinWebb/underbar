@@ -104,6 +104,17 @@
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    var rejects = collection.slice(0);
+    var accepted = _.filter(collection, test);
+    _.each(rejects, function (elem, i, list) {
+      for (var n = 0; n < accepted.length; n++) {
+        if (accepted[n] === elem) {
+          rejects.splice(i, 1);
+        }
+      }
+    });
+
+    return rejects;
   };
 
   // Produce a duplicate-free version of the array.

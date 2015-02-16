@@ -65,6 +65,11 @@
         iterator.apply(this, [collection[i], i, collection]);
       }
     }
+    else if (typeof collection === 'object') {
+      for (var key in collection) {
+        iterator.apply(this, [collection[key], key, collection]);
+      }
+    }
   };
 
   // Returns the index at which value can be found in the array, or -1 if value

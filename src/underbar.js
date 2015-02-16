@@ -119,6 +119,22 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var unique = [];
+
+    _.each(array, function (elem, i) {
+      var flagged = false;
+
+      for (var n = 0; n < unique.length; n++) {
+        if (unique[n] === elem) {
+          flagged = true;
+        }
+      }
+      if (flagged === false) {
+        unique.push(elem);
+      }
+    });
+
+    return unique;
   };
 
 

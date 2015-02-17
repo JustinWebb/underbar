@@ -198,8 +198,10 @@
       if (accumulator === undefined) {
         accumulator = null;
       }
-      
-      accumulator = iterator.apply(this, [accumulator, elem]);
+
+      accumulator = (accumulator === null) ? 
+        accumulator += elem :
+        iterator.apply(this, [accumulator, elem]);
     });
 
     return accumulator;

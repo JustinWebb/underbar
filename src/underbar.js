@@ -199,7 +199,7 @@
         accumulator = null;
       }
       
-      accumulator += elem;
+      accumulator = iterator.apply(this, [accumulator, elem]);
     });
 
     return accumulator;

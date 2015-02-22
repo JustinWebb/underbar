@@ -200,7 +200,7 @@
       }
 
       accumulator = (accumulator === null) ? 
-        accumulator += elem :
+        accumulator = elem :
         iterator.apply(this, [accumulator, elem]);
     });
 

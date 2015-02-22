@@ -225,19 +225,24 @@
     // TIP: Try re-using reduce() here.
     var accumulator;
     var flagged = false;
-    _.each(collection, function (elem, i) {
-      if (flagged === false) {
-        if (elem) {
-          accumulator = true;
+    if (collection.length === 0 || collection === {}) {
+      return true;
+    }
+    else {
+      _.each(collection, function (elem, i) {
+        if (flagged === false) {
+          if (elem) {
+            accumulator = true;
+          }
+          else {
+            accumulator = false;
+            flagged = true;
+          }
         }
-        else {
-          accumulator = false;
-          flagged = true;
-        }
-      }
-    });
-    var reduction = _.reduce(collection, iterator, accumulator);
-    return reduction;
+      });
+      var reduction = _.reduce(collection, iterator, accumulator);
+      return reduction;
+    }
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is

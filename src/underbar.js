@@ -223,25 +223,40 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
-    var accumulator;
-    var flagged = false;
+    var accumulator, reduction, flagged = false;
+
     if (collection.length === 0 || collection === {}) {
       return true;
     }
     else {
-      _.each(collection, function (elem, i) {
-        if (flagged === false) {
+      // _.each(collection, function (elem, i) {
+      //   if (flagged === false) {
+      //     if (elem) {
+      //       accumulator = true;
+      //     }
+      //     else {
+      //       accumulator = false;
+      //       flagged = true;
+      //     }
+      //   }
+      // });
+
+      // reduction = _.reduce(collection, iterator, accumulator);
+      // iterator.apply(this, [accumulator, elem]);
+
+      reduction = _.reduce(collection, function (isFlagged, elem) {
+        if (!flagged) {
           if (elem) {
-            accumulator = true;
+            return true;
           }
           else {
-            accumulator = false;
             flagged = true;
+            return false;
           }
         }
       });
-      var reduction = _.reduce(collection, iterator, accumulator);
-      return reduction;
+
+      return (!flagged) ? reduction : false;
     }
   };
 

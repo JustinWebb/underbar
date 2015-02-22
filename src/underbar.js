@@ -232,6 +232,7 @@
         }
         else {
           accumulator = false;
+          flagged = true;
         }
       }
     });

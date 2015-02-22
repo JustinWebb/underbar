@@ -229,24 +229,10 @@
       return true;
     }
     else {
-      // _.each(collection, function (elem, i) {
-      //   if (flagged === false) {
-      //     if (elem) {
-      //       accumulator = true;
-      //     }
-      //     else {
-      //       accumulator = false;
-      //       flagged = true;
-      //     }
-      //   }
-      // });
-
-      // reduction = _.reduce(collection, iterator, accumulator);
-      // iterator.apply(this, [accumulator, elem]);
 
       reduction = _.reduce(collection, function (isFlagged, elem) {
         if (!flagged) {
-          if (elem) {
+          if ((iterator && iterator(elem)) || elem) {
             return true;
           }
           else {
@@ -256,7 +242,7 @@
         }
       });
 
-      return (!flagged) ? reduction : false;
+      return (flagged) ? false :  (reduction !== undefined && reduction !== 0);
     }
   };
 

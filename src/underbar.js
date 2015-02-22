@@ -232,10 +232,13 @@
 
       reduction = _.reduce(collection, function (isFlagged, elem) {
         if (!flagged) {
-          if ((iterator && iterator(elem)) || elem) {
+          if (iterator && iterator(elem)) {
             return true;
           }
-          else {
+          else if (iterator === undefined && elem) {
+            return true;
+          }
+          else  {
             flagged = true;
             return false;
           }

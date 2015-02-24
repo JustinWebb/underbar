@@ -297,6 +297,23 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+
+    // Reusuable function for merging multiple objects
+    var mergeObj = function (orig, newObj) {
+      var source = newObj;
+      for (var key in source) {
+        orig[key] = source[key];
+      }
+
+      return orig;
+    };
+
+    // Note index starts at '1' to avoid reference to original object
+    for (var i = 1; i < arguments.length; i++) {
+      obj = mergeObj(obj, arguments[i]);
+    }
+
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already

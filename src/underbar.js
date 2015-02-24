@@ -319,6 +319,25 @@
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    // Reusuable function for merging multiple objects
+    console.log(arguments);
+    var conditionalMerge = function (orig, newObj) {
+      var source = newObj;
+      for (var key in source) {
+        if (orig[key] === undefined || orig[key] === NaN) {
+          orig[key] = source[key];
+        }
+      }
+
+      return orig;
+    };
+
+    // Note index starts at '1' to avoid reference to original object
+    for (var i = 1; i < arguments.length; i++) {
+      obj = conditionalMerge(obj, arguments[i]);
+    }
+
+    return obj;
   };
 
 

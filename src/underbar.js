@@ -324,7 +324,7 @@
     var conditionalMerge = function (orig, newObj) {
       var source = newObj;
       for (var key in source) {
-        if (orig[key] === undefined || orig[key] === NaN) {
+        if (orig[key] === undefined || orig[key] === false) {
           orig[key] = source[key];
         }
       }

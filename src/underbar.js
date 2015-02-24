@@ -253,15 +253,22 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
-    console.log(collection);
     var passed = false;
-    
-    if (collection[0]) {
+
+    if (collection.length === 0 || collection === {}) {
+      return false;
+    }
+    // Run explicit checks on collection's first since iterator will not be 
+    // invoked on the first run inside 'reduce' scope (called by 'every')
+    if (iterator === undefined) {
+      return collection[0];
+    }
+    else if (iterator(collection[0])) {
       passed = true;
     }
     else {
       _.every(collection, function (elem) {
-        if (!passed && iterator && iterator(elem)) {
+        if (!passed && iterator(elem)) {
           passed = true;
         }
       });

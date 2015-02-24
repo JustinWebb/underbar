@@ -253,12 +253,19 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    console.log(collection);
     var passed = false;
-    _.every(collection, function (elem) {
-      if (!passed && iterator && iterator(elem)) {
-        passed = true;
-      }
-    });
+    
+    if (collection[0]) {
+      passed = true;
+    }
+    else {
+      _.every(collection, function (elem) {
+        if (!passed && iterator && iterator(elem)) {
+          passed = true;
+        }
+      });
+    }
 
     return passed;
   };

@@ -388,21 +388,20 @@
   // };
 
   _.memoize = function(func) {
-    var self = this, cache = {}, result = null;
+    var self = this, cache = {};
 
     return function () {
-      var args = Array.prototype.slice.call(arguments);
-      _.each(cache, function (elem, i) {
-        if (elem === args) {
-          result = cache[args];
-        }
-      });
+      var args = Array.prototype.slice.call(arguments), result = null;
+
+      if (args in cache) {
+        result = cache[args];
+      }
+
       if (result === null) {
         result = func.apply(this, args);
         cache[args] = result;
       }
 
-      console.log('Args: ', args, result);
       return result;
     };
   };

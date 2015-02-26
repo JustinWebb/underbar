@@ -320,7 +320,6 @@
   // exists in obj
   _.defaults = function(obj) {
     // Reusuable function for merging multiple objects
-    console.log(arguments);
     var conditionalMerge = function (orig, newObj) {
       var source = newObj;
       for (var key in source) {
@@ -380,7 +379,32 @@
   // _.memoize should return a function that, when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
+  // _.memoize = function(func) {
+  //   var results = [];
+
+  //   results.push(_.once(func));
+
+  //   return memoFunc;
+  // };
+
   _.memoize = function(func) {
+    var self = this, cache = {}, result = null;
+
+    return function () {
+      var args = Array.prototype.slice.call(arguments);
+      _.each(cache, function (elem, i) {
+        if (elem === args) {
+          result = cache[args];
+        }
+      });
+      if (result === null) {
+        result = func.apply(this, args);
+        cache[args] = result;
+      }
+
+      console.log('Args: ', args, result);
+      return result;
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls

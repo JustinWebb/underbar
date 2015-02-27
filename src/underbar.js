@@ -414,9 +414,7 @@
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
     var args = Array.prototype.slice.call(arguments, 2);
-    console.log('Args 1: ', args);
     window.setTimeout(function () {
-      console.log('Args 2: ', args);
       func.apply(this, args);
     }, wait);
   };
@@ -433,6 +431,20 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var shuffled = Array.prototype.slice.call(array);
+    var limit = array.length;
+    _.each(shuffled, function (elem, i, list) {
+      var rand = Math.random() * (0 - limit);
+      var temp = shuffled.splice(rand, 1)[0];
+      shuffled.unshift(temp);
+
+      if (i == list.length - 1 && array.join() === shuffled.join()) {
+        var end = shuffled.pop();
+        shuffled.unshift(end);
+      }
+    });
+    
+    return shuffled;
   };
 
 
